@@ -15,7 +15,8 @@ public class Chamado  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "call_seq", sequenceName = "chamado_seq", schema = "helpdesk",initialValue = 1, allocationSize = 1)
     private Integer id;
 
     @JsonFormat(pattern = "dd/MM/yyyy")

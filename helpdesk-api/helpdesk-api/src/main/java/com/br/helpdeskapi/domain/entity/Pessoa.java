@@ -20,7 +20,8 @@ public abstract class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "person_seq", sequenceName = "pessoa_seq", schema = "helpdesk",initialValue = 1, allocationSize = 1)
     protected Integer id;
 
     @Column(nullable = false)

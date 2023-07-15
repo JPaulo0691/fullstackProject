@@ -1,6 +1,7 @@
 package com.br.helpdeskapi.domain.entity;
 
 import com.br.helpdeskapi.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
@@ -12,6 +13,7 @@ public class Tecnico extends Pessoa{
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore // faz com que ignore esse campo
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 

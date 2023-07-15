@@ -1,21 +1,49 @@
 package com.br.helpdeskapi.domain.entity;
 
 import com.br.helpdeskapi.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.br.CPF;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class Pessoa {
+@Entity
+public abstract class Pessoa implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+
+    @Column(nullable = false)
     protected String nome;
+
+    @CPF
+    @Column(unique = true)
     protected String cpf;
+
+    @Email
+    @Column(unique = true, nullable = false)
     protected String email;
+
+    @Column(nullable = false)
     protected String senha;
+
+    @Column(nullable = false)
+    @ElementCollection(fetch = FetchType.EAGER) // asseguro que essa lista irá vir quando for selecionado um usuário
+    @CollectionTable(name = "PERFIS") // criando uma tabela só com os perfis
     protected Set<Integer> perfis = new HashSet<>();
+
+    @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
     // para todos usuários vai ter ao menos perfil de cliente

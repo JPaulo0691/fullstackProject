@@ -1,6 +1,6 @@
 package com.br.helpdeskapi.domain.enums;
 
-public enum Status {
+public enum StatusDoChamado {
 
     ABERTO(0, "ABERTO"),
     ANDAMENTO(1, "EM ANDAMENTO"),
@@ -9,7 +9,7 @@ public enum Status {
     private Integer codigo;
     private String descricao;
 
-    Status(Integer codigo, String descricao) {
+    StatusDoChamado(Integer codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -22,13 +22,13 @@ public enum Status {
         return descricao;
     }
 
-    public static Status toEnum(Integer codigo){
+    public static StatusDoChamado toEnum(Integer codigo){
 
         if(codigo == null){
             return null;
         }
 
-        for (Status perfis: Status.values()){
+        for (StatusDoChamado perfis: StatusDoChamado.values()){
             if (codigo.equals(perfis.getCodigo())){
                 return perfis;
             }

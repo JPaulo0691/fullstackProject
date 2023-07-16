@@ -1,7 +1,9 @@
 package com.br.helpdeskapi.service;
 
+import com.br.helpdeskapi.customException.exceptionHandler.exception.TecnicoException.TecnicoComChamadoAtivoException;
 import com.br.helpdeskapi.customException.exceptionHandler.exception.TecnicoException.TecnicoNotFoundException;
 import com.br.helpdeskapi.domain.entity.Tecnico;
+import com.br.helpdeskapi.dtos.request.UpdateRequest;
 import com.br.helpdeskapi.dtos.request.TecnicoRequest;
 import com.br.helpdeskapi.dtos.response.TecnicoResponse;
 import com.br.helpdeskapi.repository.TecnicoRepository;
@@ -42,5 +44,30 @@ public class TecnicoService {
                                      .stream()
                                      .map(listTecnico -> new TecnicoResponse(listTecnico))
                                      .collect(Collectors.toList());
+    }
+
+    public Tecnico updateTecnico(Integer id, UpdateRequest updateRequest){
+        var tecnico = this.tecnicoRepository.findById(id);
+
+        if (!tecnico.isPresent()){
+            throw new TecnicoNotFoundException(id);
+        }
+        else {
+            var atualizarDados = tecnico.get();
+            atualizarDados.setEmail(updateRequest.getEmail());
+            atualizarDados.setSenha(updateRequest.getSenha());
+
+            return this.tecnicoRepository.save(atualizarDados);
+        }
+    }
+
+    public void deleteTecnicoById(Integer id){
+
+        var tecnico = this.tecnicoRepository.findById(id);
+
+        if(tecnico.get().getChamados().size() > 0){
+            throw new TecnicoComChamadoAtivoException(id);
+        }
+        this.tecnicoRepository.deleteById(id);
     }
 }

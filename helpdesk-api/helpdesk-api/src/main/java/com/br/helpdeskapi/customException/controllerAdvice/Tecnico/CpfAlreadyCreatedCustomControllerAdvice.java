@@ -1,4 +1,4 @@
-package com.br.helpdeskapi.customException.controllerAdvice;
+package com.br.helpdeskapi.customException.controllerAdvice.Tecnico;
 
 import com.br.helpdeskapi.customException.exceptionHandler.exception.ApiError;
 import com.br.helpdeskapi.customException.exceptionHandler.exception.TecnicoException.CpfAlreadyCreatedException;

@@ -1,6 +1,7 @@
-package com.br.helpdeskapi.resources;
+package com.br.helpdeskapi.controller;
 
 import com.br.helpdeskapi.domain.entity.Tecnico;
+import com.br.helpdeskapi.dtos.request.UpdateRequest;
 import com.br.helpdeskapi.dtos.request.TecnicoRequest;
 import com.br.helpdeskapi.dtos.response.TecnicoResponse;
 import com.br.helpdeskapi.service.TecnicoService;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/tecnicos")
@@ -39,4 +39,20 @@ public class TecnicoController {
 
         return ResponseEntity.ok(new TecnicoResponse(tecnicoById));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TecnicoResponse> updateTecnicoById(@PathVariable(value = "id")Integer id
+                                                            ,@Valid @RequestBody UpdateRequest updateRequest){
+        var atualizarTecnico = this.tecnicoService.updateTecnico(id,updateRequest);
+
+        return ResponseEntity.ok(new TecnicoResponse(atualizarTecnico));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTecnicoById(@PathVariable("id") Integer id){
+        this.tecnicoService.deleteTecnicoById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }

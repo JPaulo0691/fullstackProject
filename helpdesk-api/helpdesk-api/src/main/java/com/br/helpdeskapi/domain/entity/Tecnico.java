@@ -1,6 +1,7 @@
 package com.br.helpdeskapi.domain.entity;
 
 import com.br.helpdeskapi.domain.enums.Perfil;
+import com.br.helpdeskapi.dtos.request.UpdateRequest;
 import com.br.helpdeskapi.dtos.request.TecnicoRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
@@ -34,6 +35,11 @@ public class Tecnico extends Pessoa{
         this.email = tecnicoRequest.getEmail();
         this.senha = tecnicoRequest.getSenha();
         this.perfis = tecnicoRequest.getPerfis().stream().map(perfil -> perfil.getCodigo()).collect(Collectors.toSet());
+    }
+
+    public Tecnico(UpdateRequest updateRequest){
+        this.email = updateRequest.getEmail();
+        this.senha = updateRequest.getSenha();
     }
 
     public List<Chamado> getChamados() {

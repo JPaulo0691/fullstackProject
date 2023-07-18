@@ -2,6 +2,7 @@ package com.br.helpdeskapi.domain.entity;
 
 import com.br.helpdeskapi.domain.enums.Prioridade;
 import com.br.helpdeskapi.domain.enums.StatusDoChamado;
+import com.br.helpdeskapi.dtos.request.ChamadoRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -38,7 +39,8 @@ public class Chamado  implements Serializable {
 
     public Chamado() {  }
 
-    public Chamado(Integer id, Prioridade prioridade, StatusDoChamado statusDoChamado, String titulo, String observacoes, Cliente cliente, Tecnico tecnico) {
+    public Chamado(Integer id, Prioridade prioridade, StatusDoChamado statusDoChamado, String titulo
+                 , String observacoes, Cliente cliente, Tecnico tecnico) {
         this.id = id;
         this.prioridade = prioridade;
         this.status = statusDoChamado;
@@ -47,7 +49,6 @@ public class Chamado  implements Serializable {
         this.cliente = cliente;
         this.tecnico = tecnico;
     }
-
 
     public Integer getId() {
         return id;
